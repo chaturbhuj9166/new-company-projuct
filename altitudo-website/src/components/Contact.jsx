@@ -21,6 +21,7 @@ Ready to build your startup? Let's talk.
 <p>📍 Coimbatore Tamil Nadu</p>
 <p>✉ contact@altitudo.in</p>
 
+
 </div>
 
 <div className="space-y-4">
