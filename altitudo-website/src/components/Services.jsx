@@ -34,9 +34,9 @@ function Services() {
 
       <div className="max-w-6xl mx-auto px-6">
 
-        <h2 className="text-xl font-semibold text-[#0F172A] mb-16">
+        <center> <h1 className="text-2xl font-semibold text-[#0F172A] mb-16">
           Our Services
-        </h2>
+        </h1></center>
 
       <Swiper
   modules={[Autoplay]}
