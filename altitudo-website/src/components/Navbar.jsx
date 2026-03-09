@@ -1,85 +1,101 @@
-import { useState } from "react"
-import { Menu, X } from "lucide-react"
+import { useState, useEffect } from "react";
+import { Menu, X } from "lucide-react";
+import logo from "../logos/logo.png";
 
 function Navbar() {
 
-const [open,setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
+  const [show, setShow] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
 
-return (
+  useEffect(() => {
 
-<header className="fixed top-0 w-full bg-[#0F172A] text-white z-50 shadow">
+    const controlNavbar = () => {
 
-<div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
+      if (window.scrollY > lastScrollY) {
+        // scroll down
+        setShow(false);
+      } else {
+        // scroll up
+        setShow(true);
+      }
 
-<h1 className="text-xl font-bold">
-ALTITUDO <span className="text-[#F97316]">INDIA</span>
-</h1>
+      setLastScrollY(window.scrollY);
+    };
 
-{/* Desktop Menu */}
+    window.addEventListener("scroll", controlNavbar);
 
-<nav className="hidden md:flex gap-8 text-sm">
+    return () => window.removeEventListener("scroll", controlNavbar);
 
-<a href="#home" className="hover:text-[#F97316] transition">
-Home
-</a>
+  }, [lastScrollY]);
 
-<a href="#services" className="hover:text-[#F97316] transition">
-Services
-</a>
+  return (
 
-<a href="#about" className="hover:text-[#F97316] transition">
-About
-</a>
+    <header
+      className={`fixed top-0 left-0 w-full bg-[#0F172A] text-white z-50 shadow transition-transform duration-300
+      ${show ? "translate-y-0" : "-translate-y-full"}
+      `}
+    >
 
-<a href="#contact" className="hover:text-[#F97316] transition">
-Contact
-</a>
+      <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
 
-</nav>
+        {/* Logo */}
+       <div className="flex items-center gap-2">
+          <img src={logo} alt="ALTITUDO" className="h-10 w-auto" />
+          <span className="font-semibold text-lg tracking-wide">
+            ALTITUDO
+          </span>
+        </div> 
 
-{/* Mobile Icon */}
+        {/* Desktop Menu */}
+        <nav className="hidden md:flex gap-8 text-sm">
 
-<div
-className="md:hidden cursor-pointer"
-onClick={()=>setOpen(!open)}
->
+          <a href="#home" className="hover:text-[#F97316] transition">
+            Home
+          </a>
 
-{open ? <X size={28}/> : <Menu size={28}/>}
+          <a href="#services" className="hover:text-[#F97316] transition">
+            Services
+          </a>
 
-</div>
+          <a href="#about" className="hover:text-[#F97316] transition">
+            About
+          </a>
 
-</div>
+          <a href="#contact" className="hover:text-[#F97316] transition">
+            Contact
+          </a>
 
-{/* Mobile Menu */}
+        </nav>
 
-{open && (
+        {/* Mobile Menu Icon */}
+        <div
+          className="md:hidden cursor-pointer"
+          onClick={() => setOpen(!open)}
+        >
 
-<div className="md:hidden bg-[#1E293B] px-6 pb-6 space-y-4">
+          {open ? <X size={28} /> : <Menu size={28} />}
 
-<a href="#home" className="block hover:text-[#F97316]">
-Home
-</a>
+        </div>
 
-<a href="#services" className="block hover:text-[#F97316]">
-Services
-</a>
+      </div>
 
-<a href="#about" className="block hover:text-[#F97316]">
-About
-</a>
+      {/* Mobile Menu */}
+      {open && (
 
-<a href="#contact" className="block hover:text-[#F97316]">
-Contact
-</a>
+        <div className="md:hidden bg-[#1E293B] px-6 pb-6 space-y-4">
 
-</div>
+          <a href="#home" className="block">Home</a>
+          <a href="#services" className="block">Services</a>
+          <a href="#about" className="block">About</a>
+          <a href="#contact" className="block">Contact</a>
 
-)}
+        </div>
 
-</header>
+      )}
 
-)
-
+    </header>
+  );
 }
 
-export default Navbar
+export default Navbar;
