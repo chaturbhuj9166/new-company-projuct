@@ -13,14 +13,13 @@ function Navbar() {
     const controlNavbar = () => {
 
       if (window.scrollY > lastScrollY) {
-        // scroll down
         setShow(false);
       } else {
-        // scroll up
         setShow(true);
       }
 
       setLastScrollY(window.scrollY);
+
     };
 
     window.addEventListener("scroll", controlNavbar);
@@ -40,15 +39,22 @@ function Navbar() {
       <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
 
         {/* Logo */}
-       <div className="flex items-center gap-2">
-          <img src={logo} alt="ALTITUDO" className="h-10 w-auto" />
+        <div className="flex items-center gap-2">
+
+          <img
+            src={logo}
+            alt="ALTITUDO"
+            className="h-10 w-auto"
+          />
+
           <span className="font-semibold text-lg tracking-wide">
             ALTITUDO
           </span>
-        </div> 
+
+        </div>
 
         {/* Desktop Menu */}
-        <nav className="hidden md:flex gap-8 text-sm">
+        <nav className="hidden md:flex gap-10 text-sm">
 
           <a href="#home" className="hover:text-[#F97316] transition">
             Home
@@ -68,31 +74,62 @@ function Navbar() {
 
         </nav>
 
-        {/* Mobile Menu Icon */}
+        {/* Mobile Icon */}
         <div
           className="md:hidden cursor-pointer"
           onClick={() => setOpen(!open)}
         >
 
-          {open ? <X size={28} /> : <Menu size={28} />}
+          <div className="relative w-7 h-7">
+
+            <Menu
+              size={28}
+              className={`absolute transition-all duration-300 ${
+                open ? "opacity-0 rotate-90" : "opacity-100 rotate-0"
+              }`}
+            />
+
+            <X
+              size={28}
+              className={`absolute transition-all duration-300 ${
+                open ? "opacity-100 rotate-0" : "opacity-0 -rotate-90"
+              }`}
+            />
+
+          </div>
 
         </div>
 
       </div>
 
       {/* Mobile Menu */}
-      {open && (
+      <div
+        className={`md:hidden bg-[#1E293B] overflow-hidden transition-all duration-300
+        ${open ? "max-h-60 py-6" : "max-h-0"}
+        `}
+      >
 
-        <div className="md:hidden bg-[#1E293B] px-6 pb-6 space-y-4">
+        <div className="px-6 flex flex-col gap-2 text-sm">
 
-          <a href="#home" className="block">Home</a>
-          <a href="#services" className="block">Services</a>
-          <a href="#about" className="block">About</a>
-          <a href="#contact" className="block">Contact</a>
+          <a href="#home" onClick={() => setOpen(false)}>
+            Home
+          </a>
+
+          <a href="#services" onClick={() => setOpen(false)}>
+            Services
+          </a>
+
+          <a href="#about" onClick={() => setOpen(false)}>
+            About
+          </a>
+
+          <a href="#contact" onClick={() => setOpen(false)}>
+            Contact
+          </a>
 
         </div>
 
-      )}
+      </div>
 
     </header>
   );

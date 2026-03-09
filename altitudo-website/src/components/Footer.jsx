@@ -56,7 +56,7 @@ export default function Footer() {
       {/* Bottom */}
       <div className="border-t mt-12 pt-6 flex flex-col md:flex-row justify-between items-center max-w-7xl mx-auto px-6 text-gray-500">
 
-        <p>Made with 💛 © 2026 Altitudo India Pricvate limited</p>
+        <p>Made with 💛 © 2026 Altitudo India Private Limited</p>
 
         <div className="flex gap-6 mt-4 md:mt-0">
           <span className="cursor-pointer">Privacy Policy</span>
